@@ -39,6 +39,11 @@ from sched.h.")
 
 (defvar *cpu-count* nil)
 
+(defun forget-cpu-count ()
+  (setf *cpu-count* nil))
+
+(pushnew 'forget-cpu-count sb-ext:*save-hooks*)
+
 (defun cpu-count ()
   "Number of CPUs available in the system. Based on /proc/cpuinfo."
   (or *cpu-count*
