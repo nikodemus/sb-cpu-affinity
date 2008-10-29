@@ -30,6 +30,6 @@ clean:
 
 release: clean
 	mkdir sb-cpu-affinity-$(VERSION)
-	cp Makefile LICENSE *.lisp *.c *.asd sb-cpu-affinity-$(VERSION)/
+	cp Makefile LICENSE README *.lisp *.c *.asd sb-cpu-affinity-$(VERSION)/
 	tar -czvf sb-cpu-affinity-$(VERSION).tar.gz sb-cpu-affinity-$(VERSION)
 	rm -rf sb-cpu-affinity-$(VERSION)

@@ -1,0 +1,25 @@
+SB-CPU-AFFINITY is a simple API to Linux scheduler affinity masks for SBCL.
+
+See documentation of symbols exported from SB-CPU-AFFINITY package.
+
+Usage example:
+
+  (with-cpu-affinity-mask (mask)
+    (print mask))
+
+  (with-cpu-affinity-mask (mask :save t)
+    ;; Remove all
+    (clear-cpu-affinity-mask mask)
+    ;; Set CPU 0.
+    (setf (cpu-affinity-p 0 mask) t))
+ 
+  (with-cpu-affinity-mask (mask)
+    (print mask))
+
+  (with-cpu-affinity-mask (mask :save t)
+    ;; Only odd CPUs in mask.
+    (dotimes (cpu (cpu-count))
+      (setf (cpu-affinity-p cpu mask) (oddp cpu))))
+  
+  (with-cpu-affinity-mask (mask)
+    (print mask))
