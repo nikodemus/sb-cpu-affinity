@@ -2,7 +2,7 @@
 #include <sched.h>
 
 int cpu_setsize = CPU_SETSIZE;
-int cpu_masksize = sizeof(cpu_set_t);
+int cpu_mask_size = sizeof(cpu_set_t);
 
 int get_cpu_affinity_mask(cpu_set_t *mask)
 {
