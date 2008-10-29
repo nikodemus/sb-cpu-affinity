@@ -24,10 +24,12 @@
 (defpackage :sb-cpu-affinity
   (:use :sb-alien :cl)
   (:export
-   "WITH-CPU-AFFINITY-MASK"
+   "+CPU-LIMIT+"
    "CLEAR-CPU-AFFINITY-MASK"
-   "GET-CPU-AFFINITY-MASK"
-   "SET-CPU-AFFINITY-MASK"
+   "CPU-AFFINITY-MASK"
    "CPU-AFFINITY-P"
    "CPU-COUNT"
-   "+CPU-LIMIT+"))
+   "GET-CPU-AFFINITY-MASK"
+   "SET-CPU-AFFINITY-MASK"
+   "WITH-CPU-AFFINITY-MASK"
+   ))
