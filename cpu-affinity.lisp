@@ -144,8 +144,8 @@ effect only if SAVE is true (default is NIL)."
               (setf ,mask (get-cpu-affinity-mask))
               (multiple-value-prog1 (progn ,@body)
                 (setf ,ok-n t)))
-         (when (and ,ok-n ,save)
-           (set-cpu-affinity-mask ,mask)
+         (when ,ok-n
+           ,@(when save `((set-cpu-affinity-mask ,mask)))
            (free-alien (cpu-affinity-mask-%mask ,mask))
            (setf (cpu-affinity-mask-%mask ,mask) nil)
            )))))
