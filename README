@@ -11,14 +11,7 @@ License:
   MIT-style. See file LICENSE for details.
 
 Bugs and Issues:
-
-  Currently each call to GET-CPU-AFFINITY-MASK (and
-  WITH-CPU-AFFINITY-MASK) mallocs 128 bytes of memory for the
-  mask, which is never freed by the system -- at least not
-  on the Lisp side: freeing this memory causes glibc to complain
-  about a double-free, and breaks SBCL.
-
-  Patches and/or explantions for this welcome.
+  no known bugs
 
 Usage example:
 

@@ -101,9 +101,6 @@ and CLEAR-CPU-AFFINITY-MASK. To make any changes take effect, the mask
 must be saved using SET-CPU-AFFINITY-MASK.
 
 Using WITH-CPU-AFFINITY-MASK instead is recommended."
-  ;; FIXME: Malloc'ed mask is nasty, but libc doesn't seem to like
-  ;; stack allocated ones, nor does it seem to like freeing masks that
-  ;; have been used. So we never do. Gah.
   (let ((mask (make-cpu-mask)))
     (unless (zerop (%get-cpu-affinity-mask mask))
       (error "Could not read CPU affinity mask: ~A" (sb-int:strerror)))
@@ -114,7 +111,7 @@ Using WITH-CPU-AFFINITY-MASK instead is recommended."
 
 Using WITH-CPU-AFFINITY-MASK :SAVE T instead is recommended."
   (unless (zerop (%set-cpu-affinity-mask (cpu-affinity-mask-%mask mask)))
-    (error "Coud not write CPU affinity mask: ~A" (sb-int:strerror))))
+    (error "Could not write CPU affinity mask: ~A" (sb-int:strerror))))
 
 (defun cpu-affinity-p (cpu mask)
   "Returns T if the CPU \(a numeric indentifier between 0 and
@@ -147,8 +144,11 @@ effect only if SAVE is true (default is NIL)."
               (setf ,mask (get-cpu-affinity-mask))
               (multiple-value-prog1 (progn ,@body)
                 (setf ,ok-n t)))
-         (when (and ,ok-n ,save)
-           (set-cpu-affinity-mask ,mask))))))
+         (when ,ok-n
+           ,@(when save `((set-cpu-affinity-mask ,mask)))
+           (free-alien (cpu-affinity-mask-%mask ,mask))
+           (setf (cpu-affinity-mask-%mask ,mask) nil)
+           )))))
 
 ;;;; Usage examples
 #+nil

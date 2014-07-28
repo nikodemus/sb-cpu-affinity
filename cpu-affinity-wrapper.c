@@ -29,12 +29,12 @@ int cpu_mask_size = sizeof(cpu_set_t);
 
 int get_cpu_affinity_mask(cpu_set_t *mask)
 {
-    return sched_getaffinity(0, CPU_SETSIZE, mask);
+    return sched_getaffinity(0, cpu_mask_size, mask);
 }
 
 int set_cpu_affinity_mask(cpu_set_t *mask)
 {
-    return sched_setaffinity(0, CPU_SETSIZE, mask);
+    return sched_setaffinity(0, cpu_mask_size, mask);
 }
 
 void zero_cpu_affinity_mask(cpu_set_t *mask)
@@ -56,6 +56,3 @@ void clear_cpu_affinity(int cpu, cpu_set_t *mask)
 {
     CPU_CLR(cpu, mask);
 }
-
-    
-    
